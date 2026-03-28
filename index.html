@@ -3,83 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional WhatsApp Store</title>
+    <title>Electronics Component Store | IoT & Robotics</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .tech-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
+        .card-hover:hover { transform: translateY(-5px); border-color: #3b82f6; }
+    </style>
 </head>
-<body class="bg-gray-100 font-sans pb-24">
+<body class="bg-slate-50 font-sans pb-32">
 
-    <nav class="bg-green-600 text-white p-4 shadow-lg sticky top-0 z-50 flex justify-between items-center">
-        <h1 class="text-xl font-bold text-white">Smart Digital Store</h1>
-        <div class="relative">
-            <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs px-2 py-1 rounded-full font-bold">0</span>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-            </svg>
+    <header class="tech-gradient text-white p-6 shadow-2xl sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div>
+                <h1 class="text-2xl font-extrabold tracking-tight text-blue-400">ELECTRONICS COMPONENT</h1>
+                <p class="text-xs text-slate-400 italic">IoT • Robotics • Drones • Sensors</p>
+            </div>
+            <div class="bg-blue-600 px-4 py-2 rounded-full flex items-center gap-2">
+                <span id="cart-count" class="font-bold">0</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                </svg>
+            </div>
         </div>
-    </nav>
+    </header>
 
-    <div class="max-w-4xl mx-auto p-4 grid grid-cols-2 md:grid-cols-3 gap-4">
-        <div class="bg-white p-3 rounded-lg shadow-sm border">
-            <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=300" class="w-full h-32 object-cover rounded">
-            <h3 class="font-bold mt-2">Premium Watch</h3>
-            <p class="text-green-600 font-bold">₹1,999</p>
-            <button onclick="addToCart('Premium Watch', 1999)" class="w-full mt-2 bg-blue-500 text-white py-1 rounded hover:bg-blue-600">Add to Cart</button>
+    <main class="max-w-6xl mx-auto p-4">
+        <h2 class="text-slate-800 text-lg font-bold mb-4 border-l-4 border-blue-600 pl-2">AVAILABLE COMPONENTS</h2>
+        
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            
+            <div class="bg-white border rounded-xl p-3 shadow-sm card-hover transition-all">
+                <img src="https://images.unsplash.com/photo-1553406830-ef2513450d76?w=300" class="w-full h-32 object-cover rounded-lg mb-2">
+                <h3 class="text-sm font-bold text-slate-700">Arduino Uno R3</h3>
+                <p class="text-xs text-slate-500 mb-2">Original Chipset</p>
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-blue-600">₹550</span>
+                    <button onclick="addToCart('Arduino Uno', 550)" class="bg-slate-900 text-white text-xs px-3 py-2 rounded-md hover:bg-blue-600">Add</button>
+                </div>
+            </div>
+
+            <div class="bg-white border rounded-xl p-3 shadow-sm card-hover transition-all">
+                <img src="https://images.unsplash.com/photo-1555664424-778a1e5e1b48?w=300" class="w-full h-32 object-cover rounded-lg mb-2">
+                <h3 class="text-sm font-bold text-slate-700">HC-SR04 Sensor</h3>
+                <p class="text-xs text-slate-500 mb-2">Ultrasonic Distance</p>
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-blue-600">₹85</span>
+                    <button onclick="addToCart('Ultrasonic Sensor', 85)" class="bg-slate-900 text-white text-xs px-3 py-2 rounded-md hover:bg-blue-600">Add</button>
+                </div>
+            </div>
+
+            <div class="bg-white border rounded-xl p-3 shadow-sm card-hover transition-all">
+                <img src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=300" class="w-full h-32 object-cover rounded-lg mb-2">
+                <h3 class="text-sm font-bold text-slate-700">BLDC Motor 1000kv</h3>
+                <p class="text-xs text-slate-500 mb-2">For Quadcopters</p>
+                <div class="flex justify-between items-center">
+                    <span class="font-bold text-blue-600">₹1,200</span>
+                    <button onclick="addToCart('BLDC Motor', 1200)" class="bg-slate-900 text-white text-xs px-3 py-2 rounded-md hover:bg-blue-600">Add</button>
+                </div>
+            </div>
+
         </div>
+    </main>
 
-        <div class="bg-white p-3 rounded-lg shadow-sm border">
-            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=300" class="w-full h-32 object-cover rounded">
-            <h3 class="font-bold mt-2">Headphones</h3>
-            <p class="text-green-600 font-bold">₹2,499</p>
-            <button onclick="addToCart('Headphones', 2499)" class="w-full mt-2 bg-blue-500 text-white py-1 rounded hover:bg-blue-600">Add to Cart</button>
-        </div>
-    </div>
-
-    <div class="fixed bottom-0 left-0 right-0 bg-white border-t p-4 flex justify-between items-center shadow-2xl">
+    <div class="fixed bottom-0 w-full bg-white border-t-2 border-blue-100 p-5 shadow-[0_-10px_25px_rgba(0,0,0,0.1)] flex justify-between items-center">
         <div>
-            <p class="text-gray-500 text-sm">Total Amount:</p>
-            <p class="text-xl font-bold text-gray-900" id="total-price">₹0</p>
+            <p class="text-xs text-slate-400 font-bold uppercase">Estimated Bill</p>
+            <p id="total-price" class="text-2xl font-black text-slate-900">₹0</p>
         </div>
-        <button onclick="sendOrder()" class="bg-green-600 text-white px-8 py-3 rounded-xl font-bold hover:bg-green-700 animate-pulse">
-            Place Order on WhatsApp
+        <button onclick="checkout()" class="bg-blue-600 text-white px-10 py-3 rounded-xl font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 active:scale-95 transition-all">
+            PLACE ORDER (WHATSAPP)
         </button>
     </div>
 
     <script>
         let cart = [];
+        const WHATSAPP_NUMBER = "911234567890"; // CHANGE THIS TO YOUR NUMBER
 
         function addToCart(name, price) {
             cart.push({ name, price });
-            updateUI();
-        }
-
-        function updateUI() {
             document.getElementById('cart-count').innerText = cart.length;
             let total = cart.reduce((sum, item) => sum + item.price, 0);
             document.getElementById('total-price').innerText = "₹" + total;
         }
 
-        function sendOrder() {
-            if (cart.length === 0) {
-                alert("Please add items to cart first!");
-                return;
-            }
-
-            // Create Order Message
-            let message = "📦 *NEW ORDER RECEIVED*\n\n";
+        function checkout() {
+            if (cart.length === 0) return alert("Please add items first!");
+            
+            let message = "🛠️ *NEW COMPONENTS ORDER*\n\n";
             let total = 0;
-
             cart.forEach((item, index) => {
-                message += `${index + 1}. ${item.name} - ₹${item.price}\n`;
+                message += `🔹 ${item.name} - ₹${item.price}\n`;
                 total += item.price;
             });
+            message += `\n💵 *Total Payable: ₹${total}*`;
+            message += `\n\n👤 *Customer Details:* \nName: \nCollege/Address:`;
 
-            message += `\n💰 *Total Amount: ₹${total}*`;
-            message += `\n\n📍 *Customer Details:* \n(Please write your Name & Address here)`;
-
-            const phoneNumber = "911234567890"; // Shopkeeper's Number
-            const whatsappURL = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-            
-            window.open(whatsappURL, '_blank');
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
         }
     </script>
 </body>

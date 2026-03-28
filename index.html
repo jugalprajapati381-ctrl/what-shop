@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robocon Pro | Advanced Robotics Store</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-main text-white font-sans overflow-x-hidden">
+
+    <header class="navbar p-5 sticky top-0 z-50 flex justify-between items-center shadow-lg">
+        <h1 class="logo-text">ROBOCON <span class="text-blue-500">PRO</span></h1>
+        <div onclick="toggleSidebar('catalogue')" class="relative cursor-pointer glow-icon">
+            <span id="cart-count" class="badge">0</span>
+            <img src="https://img.icons8.com/neon/96/shopping-cart.png" class="h-10 w-10">
+        </div>
+    </header>
+
+    <main id="product-grid" class="max-w-7xl mx-auto p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        </main>
+
+    <div id="productModal" class="modal-overlay hidden">
+        <div class="modal-content glass-effect border-shiny">
+            <button onclick="closeModal('productModal')" class="close-btn">&times;</button>
+            <div class="md:flex gap-8 p-4">
+                <div class="flex-1">
+                    <img id="detail-img" src="" class="main-detail-image rounded-2xl">
+                    <div id="image-thumbnails" class="flex gap-2 mt-4"></div>
+                </div>
+                <div class="flex-1 space-y-4">
+                    <h2 id="detail-name" class="text-3xl font-black text-blue-400"></h2>
+                    <p id="detail-desc" class="text-gray-400 italic text-sm"></p>
+                    <div id="detail-reviews" class="text-yellow-400 text-xs"></div>
+                    <p id="detail-price" class="text-2xl font-bold text-white"></p>
+                    <div class="qty-control">
+                        <button onclick="updateQty(-1)">-</button>
+                        <span id="qty-number">1</span>
+                        <button onclick="updateQty(1)">+</button>
+                    </div>
+                    <button onclick="addToCatalogue()" class="glow-btn-blue w-full">ADD TO CATALOGUE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="catalogueSidebar" class="sidebar hidden shadow-2xl">
+        <div class="p-6 h-full flex flex-col">
+            <h2 class="text-xl font-black border-b border-gray-700 pb-4 mb-4">FINAL CATALOGUE</h2>
+            <div id="catalogue-list" class="flex-1 overflow-y-auto space-y-4">
+                </div>
+            <div class="border-t border-gray-700 pt-4 mt-auto">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-gray-400">Total Price:</span>
+                    <span id="total-price" class="text-2xl font-black text-blue-400">₹0</span>
+                </div>
+                <button onclick="showLayout(3)" class="glow-btn-green w-full py-4 uppercase font-black">Final Catalogue</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="infoLayout" class="modal-overlay hidden">
+        <div class="modal-content glass-effect max-w-lg p-8">
+            <h2 class="text-2xl font-bold mb-6 text-blue-400">Delivery Information</h2>
+            <div class="grid grid-cols-1 gap-4 text-sm">
+                <input type="text" id="cust-name" placeholder="Full Name" class="form-input">
+                <input type="text" id="cust-address" placeholder="Address / Hostel / Floor" class="form-input">
+                <div class="grid grid-cols-2 gap-2">
+                    <input type="text" id="cust-pin" placeholder="Pin Code" class="form-input">
+                    <input type="text" id="cust-landmark" placeholder="Landmark" class="form-input">
+                </div>
+                <input type="tel" id="cust-phone" placeholder="Primary Contact" class="form-input">
+                <input type="tel" id="cust-alt" placeholder="Alternate Number" class="form-input">
+                <button onclick="confirmDetails()" class="glow-btn-blue py-3 mt-4">CONTINUE TO FINAL ORDER</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="trackingLayout" class="max-w-2xl mx-auto p-8 glass-effect mt-10 hidden border-shiny">
+        <h2 class="text-2xl font-bold text-green-400 mb-4 tracking-tighter">ORDER TRACKING ACTIVE</h2>
+        <div id="tracking-content" class="space-y-3 text-sm">
+            </div>
+        <div class="mt-6 p-4 bg-blue-900/20 rounded-lg border border-blue-500/30">
+            <p class="text-xs text-blue-300">Type: <span class="font-bold">Open Box Delivery</span></p>
+            <p id="delivery-boy" class="text-xs text-gray-400 mt-1"></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
 

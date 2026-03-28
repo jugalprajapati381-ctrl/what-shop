@@ -95,7 +95,7 @@ window.confirmDetails = () => {
     msg += `\n💰 Total: ${document.getElementById('total-price').innerText}\n`;
     msg += `📍 Address: ${document.getElementById('cust-address').value}\n`;
     
-    window.open(`https://wa.me/911234567890?text=${encodeURIComponent(msg)}`, '_blank');
+    window.open(`https://wa.me/917977088862?text=${encodeURIComponent(msg)}`, '_blank');
     showTracking(trackingID, name);
 };
 

@@ -111,7 +111,7 @@ function toggleNav() {
     let menu = document.getElementById("sideMenu");
     // Agar width 0 hai toh 250px kar do, warna 0 kar do
     if (menu.style.width === "250px") {
-        menu.style.width = "250";
+        menu.style.width = "0";
     } else {
         menu.style.width = "250px";
     }

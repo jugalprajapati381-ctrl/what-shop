@@ -29,7 +29,7 @@ body { background: var(--bg-dark); }
     height: 100%;
     width: 0; /* Shuruat mein band rahega */
     position: fixed;
-    z-index: 1000;
+    z-index: 0;
     top: 0; left: 0;
     background-color: #0a192f; /* Deep Navy Blue */
     overflow-x: hidden;

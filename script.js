@@ -137,3 +137,43 @@ window.filterCategory = (catName) => {
     // 3. Logic: Click hone ke baad sidebar menu band ho jaye
     toggleNav(); 
 };
+// Admin Logic: Product save karne ka function
+window.saveProduct = () => {
+    // Input fields se data uthana
+    const name = document.getElementById('new-name').value;
+    const price = document.getElementById('new-price').value;
+    const img = document.getElementById('new-img').value;
+    const desc = document.getElementById('new-desc').value;
+    const category = document.getElementById('new-category').value; // Dropdown value
+
+    // Check karein ki saari fields bhari hain ya nahi
+    if(!name || !price || !img) {
+        alert("Please fill name, price and image URL!");
+        return;
+    }
+
+    // Naya Product Object banana
+    const newItem = {
+        id: Date.now(), // Unique ID generate karne ke liye
+        name: name,
+        price: parseInt(price),
+        img: img,
+        desc: desc,
+        category: category // Section selection yahan save hoga
+    };
+
+    // 1. Database (Array) mein add karein
+    products.push(newItem);
+
+    // 2. Local Storage mein permanent save karein
+    localStorage.setItem('myStoreData', JSON.stringify(products));
+
+    // 3. Screen (Grid) ko refresh karein naye item ke saath
+    renderGrid(products);
+
+    // 4. Admin Window band karein
+    closeModal('adminModal');
+
+    // 5. Success Message
+    alert(name + " is now LIVE in " + category + " section!");
+};

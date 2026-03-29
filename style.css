@@ -70,3 +70,22 @@ body { background: var(--bg-dark); }
     box-shadow: 0 0 10px #ff0055;
     cursor: pointer;
 }
+/* Admin Window styling */
+.admin-window {
+    position: fixed;
+    inset: 0; /* Puri screen cover karega */
+    background: rgba(5, 8, 16, 0.95); /* Dark background */
+    z-index: 2000; /* Sabse upar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-box {
+    width: 90%;
+    max-width: 500px;
+    padding: 40px;
+    border-radius: 30px;
+    /* Neon glow effect for the window edge */
+    box-shadow: 0 0 50px rgba(0, 242, 255, 0.2);
+}

@@ -112,20 +112,32 @@
     </div>
 
     <script src="script.js"></script>
-</body>
-     <div id="adminModal" class="modal-overlay hidden z-[200]">
-    <div class="modal-content glass-effect p-10 rounded-3xl border-shiny max-w-lg w-full">
-        <h2 class="text-3xl font-black text-blue-400 mb-6">ADMIN DASHBOARD</h2>
-        <div id="admin-login-area">
-            <input type="password" id="admin-pass" placeholder="Enter Secret Key" class="form-input w-full mb-4">
-            <button onclick="checkAdmin()" class="glow-btn-blue w-full py-2">LOGIN</button>
-        </div>
-        <div id="admin-form" class="hidden space-y-4">
-            <input type="text" id="new-p-name" placeholder="Item Name" class="form-input w-full text-sm">
-            <button onclick="saveNewProduct()" class="glow-btn-green w-full py-3">PUBLISH TO STORE</button>
-            <button onclick="closeModal('adminModal')" class="text-gray-500 text-xs w-full mt-2">Exit Admin</button>
+
+<div id="adminModal" class="admin-window hidden">
+    <div class="admin-box glass-effect border-shiny">
+        <h2 class="text-2xl font-black text-blue-400 mb-6 text-center">ADD NEW PRODUCT</h2>
+        
+        <div class="space-y-4">
+            <label class="text-xs text-gray-400">Select Section:</label>
+            <select id="new-category" class="form-input w-full">
+                <option value="Sensor">Sensors (IR/Touch)</option>
+                <option value="PCB">PCB Boards</option>
+                <option value="Gear Motor">Gear Motors</option>
+                <option value="Drone Motor">Drone Motors</option>
+                <option value="Module">Circuit Modules</option>
+            </select>
+
+            <input type="text" id="new-name" placeholder="Product Name" class="form-input w-full">
+            <input type="number" id="new-price" placeholder="Price (₹)" class="form-input w-full">
+            <input type="text" id="new-img" placeholder="Image URL (GitHub Raw Link)" class="form-input w-full">
+            <textarea id="new-desc" placeholder="Product Description / Specialty" class="form-input w-full h-24"></textarea>
+
+            <button onclick="saveProduct()" class="glow-btn-green w-full py-3 mt-4">ADD PRODUCT LIVE</button>
+            <button onclick="closeModal('adminModal')" class="w-full text-gray-500 text-xs mt-2 underline">Cancel & Exit</button>
         </div>
     </div>
 </div>
+
+</body>
 
 </html>

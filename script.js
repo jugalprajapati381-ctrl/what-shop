@@ -1,8 +1,10 @@
 // INITIAL DATA
 const defaultProducts = [
-    { id: 1, name: "Arduino Uno", price: 550, desc: "B.Tech project base board", img: "https://img.icons8.com/color/240/arduino.png" },
-    { id: 2, name: "IR Sensor", price: 45, desc: "Obstacle detection sensor", img: "https://img.icons8.com/color/240/proximity-sensor.png" }
+    { id: 1, name: "Arduino Uno", price: 550, desc: "...", img: "...", category: "PCB" }, // Yahan category add karein
+    { id: 2, name: "IR Sensor", price: 45, desc: "...", img: "...", category: "Sensor" }  // Yahan bhi
 ];
+
+
 
 // Memory: Check if products exist in LocalStorage, else use defaults
 let products = JSON.parse(localStorage.getItem('myStoreData')) || defaultProducts;
@@ -106,25 +108,18 @@ window.openInfoLayout = () => {
 window.clearStore = () => { localStorage.removeItem('myStoreData'); location.reload(); };
 
 renderGrid();
-// 1. Menu open/close karne ka logic
-function toggleNav() {
-    let menu = document.getElementById("sideMenu");
-    // Agar width 0 hai toh 250px kar do, warna 0 kar do
-    if (menu.style.width === "250px") {
-        menu.style.width = "0";
-    } else {
-        menu.style.width = "250px";
-    }
-}
+// Point 4: File ke sabse niche ye type karein (Line 49 se shuru karein)
 
-// 2. Category Filter Logic
-function filterCategory(catName) {
-    // Ye function products array mein se sirf wahi dikhayega jo humne chuna hai
-    const filtered = products.filter(p => p.category === catName);
+window.filterCategory = (catName) => {
+    // 1. Logic: Agar 'All' select kiya toh saare products dikhao
+    if (catName === 'all') {
+        renderGrid(products);
+    } else {
+        // 2. Logic: Sirf wahi products nikaalo jinka category name match kare
+        const filtered = products.filter(p => p.category === catName);
+        renderGrid(filtered); // Grid ko refresh karo sirf filtered items ke saath
+    }
     
-    // Agar 'All' chuna toh saare dikhao
-    if(catName === 'all') renderGrid(products);
-    else renderGrid(filtered);
-    
-    toggleNav(); // Menu band kar do click ke baad
-}
+    // 3. Logic: Click hone ke baad sidebar menu band ho jaye
+    toggleNav(); 
+};

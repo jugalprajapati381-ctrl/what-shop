@@ -8,6 +8,31 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-main text-white">
+    
+    <div id="sideMenu" class="side-nav">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()">&times;</a>
+    
+    <div class="menu-section">
+        <h3>COMPONENTS</h3>
+        <a onclick="filterCategory('Sensor')">Sensors (Touch/IR)</a>
+        <a onclick="filterCategory('PCB')">PCB Boards</a>
+        <a onclick="filterCategory('Module')">Circuit Modules</a>
+    </div>
+
+    <div class="menu-section">
+        <h3>MOTORS</h3>
+        <a onclick="filterCategory('Gear Motor')">Gear Motors</a>
+        <a onclick="filterCategory('Dynamo')">Dynamo Motors</a>
+        <a onclick="filterCategory('Drone Motor')">Drone/BLDC Motors</a>
+    </div>
+
+    <div class="admin-link-wrapper">
+        <button onclick="openAdmin()" class="admin-glow-btn">ADMIN ACCESS</button>
+    </div>
+</div>
+
+<span class="menu-icon" onclick="toggleNav()">&#9776;</span>
+
 
     <header class="navbar p-4 sticky top-0 z-50 flex justify-between items-center shadow-2xl">
         <h1 class="logo-text">ROBOCON <span class="text-blue-400">PRO</span></h1>

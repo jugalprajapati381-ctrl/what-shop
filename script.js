@@ -106,3 +106,25 @@ window.openInfoLayout = () => {
 window.clearStore = () => { localStorage.removeItem('myStoreData'); location.reload(); };
 
 renderGrid();
+// 1. Menu open/close karne ka logic
+function toggleNav() {
+    let menu = document.getElementById("sideMenu");
+    // Agar width 0 hai toh 250px kar do, warna 0 kar do
+    if (menu.style.width === "250px") {
+        menu.style.width = "0";
+    } else {
+        menu.style.width = "250px";
+    }
+}
+
+// 2. Category Filter Logic
+function filterCategory(catName) {
+    // Ye function products array mein se sirf wahi dikhayega jo humne chuna hai
+    const filtered = products.filter(p => p.category === catName);
+    
+    // Agar 'All' chuna toh saare dikhao
+    if(catName === 'all') renderGrid(products);
+    else renderGrid(filtered);
+    
+    toggleNav(); // Menu band kar do click ke baad
+}

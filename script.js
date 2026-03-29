@@ -122,21 +122,6 @@ function toggleNav() {
     }
 }
 
-// Point 4: File ke sabse niche ye type karein (Line 49 se shuru karein)
-
-window.filterCategory = (catName) => {
-    // 1. Logic: Agar 'All' select kiya toh saare products dikhao
-    if (catName === 'all') {
-        renderGrid(products);
-    } else {
-        // 2. Logic: Sirf wahi products nikaalo jinka category name match kare
-        const filtered = products.filter(p => p.category === catName);
-        renderGrid(filtered); // Grid ko refresh karo sirf filtered items ke saath
-    }
-    
-    // 3. Logic: Click hone ke baad sidebar menu band ho jaye
-    toggleNav(); 
-};
 // Admin Logic: Product save karne ka function
 window.saveProduct = () => {
     // Input fields se data uthana

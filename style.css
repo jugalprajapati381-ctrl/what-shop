@@ -27,9 +27,9 @@ body { background: var(--bg-dark); }
 /* Sidebar ka basic look */
 .side-nav {
     height: 100%;
-    width: 0; /* Shuruat mein band rahega */
+    width: 10; /* Shuruat mein band rahega */
     position: fixed;
-    z-index: 0;
+    z-index: 00;
     top: 0; left: 0;
     background-color: #0a192f; /* Deep Navy Blue */
     overflow-x: hidden;

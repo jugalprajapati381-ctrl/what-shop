@@ -45,19 +45,13 @@ body { background: var(--bg-dark); }
     padding: 10px 32px;
     letter-spacing: 2px;
 }
-
-.side-nav a {
-    padding: 8px 32px;
-    text-decoration: none;
-    font-size: 16px;
-    color: #8892b0;
-    display: block;
-    transition: 0.3s;
-    cursor: pointer;
+/* style.css mein type karein */
+#product-grid {
+    transition: filter 0.5s ease; /* Smooth blur transition */
 }
-
-.side-nav a:hover { color: #39ff14; } /* Neon Green on hover */
-
+.body-blur {
+    filter: blur(5px) brightness(0.5); /* Screen dimming effect */
+}
 /* Admin Button Highlight */
 .admin-glow-btn {
     margin: 20px 32px;

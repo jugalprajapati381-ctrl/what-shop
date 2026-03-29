@@ -72,20 +72,6 @@ window.checkAdmin = () => {
     } else { alert("Wrong Key!"); }
 };
 
-window.saveProduct = () => {
-    const name = document.getElementById('new-name').value;
-    const price = document.getElementById('new-price').value;
-    const img = document.getElementById('new-img').value;
-    const desc = document.getElementById('new-desc').value;
-
-    const newItem = { id: Date.now(), name, price: parseInt(price), img, desc };
-    products.push(newItem);
-    localStorage.setItem('myStoreData', JSON.stringify(products)); // SAVE PERMANENTLY
-    renderGrid();
-    closeModal('adminModal');
-    alert("Live updated!");
-};
-
 // 5. WHATSAPP & TRACKING
 window.confirmOrder = () => {
     const trackingID = "TRK" + Math.floor(Math.random() * 99999);
@@ -162,3 +148,16 @@ window.saveProduct = () => {
     // 5. Success Message
     alert(name + " is now LIVE in " + category + " section!");
 };
+// toggleNav function ke andar ye line add karein
+function toggleNav() {
+    let menu = document.getElementById("sideMenu");
+    let grid = document.getElementById("product-grid");
+
+    if (menu.style.width === "250px") {
+        menu.style.width = "0";
+        grid.classList.remove("body-blur"); // Blur hatao
+    } else {
+        menu.style.width = "250px";
+        grid.classList.add("body-blur"); // Blur lagao
+    }
+}

@@ -85,6 +85,30 @@
             <p id="delivery-boy" class="text-xs text-gray-400 mt-1"></p>
         </div>
     </div>
+    <div id="adminModal" class="modal-overlay hidden">
+    <div class="modal-content glass-effect border-shiny max-w-lg p-8">
+        <h2 class="text-2xl font-bold text-blue-400 mb-4">ADMIN DASHBOARD</h2>
+        <div id="admin-login" class="space-y-4">
+            <input type="password" id="admin-pass" placeholder="Enter Secret Key" class="form-input w-full">
+            <button onclick="checkAdmin()" class="glow-btn-blue w-full py-2">LOGIN</button>
+        </div>
+        
+        <div id="admin-form" class="hidden space-y-4">
+            <p class="text-xs text-green-400">Login Successful! Add New Item:</p>
+            <input type="text" id="new-p-name" placeholder="Product Name" class="form-input w-full">
+            <input type="number" id="new-p-price" placeholder="Price (₹)" class="form-input w-full">
+            <textarea id="new-p-desc" placeholder="Product Specialty/Description" class="form-input w-full"></textarea>
+            <input type="text" id="new-p-img" placeholder="GitHub Image Link (RAW)" class="form-input w-full">
+            <button onclick="saveNewProduct()" class="glow-btn-green w-full py-3">PUBLISH TO STORE</button>
+            <button onclick="closeModal('adminModal')" class="text-gray-500 text-xs w-full mt-2">Exit Admin Mode</button>
+        </div>
+    </div>
+</div>
+
+<footer class="p-10 text-center">
+    <p onclick="openAdmin()" class="text-gray-800 cursor-pointer text-[10px]">Admin Access</p>
+</footer>
+
 
     <script src="script.js"></script>
 </body>

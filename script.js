@@ -114,6 +114,58 @@ function showTracking(id, name) {
     document.getElementById('delivery-boy').innerHTML = `Delivery Agent: Rahul (Code: 7712) | 📞 9876543210`;
 }
 
+// Admin Logic
+const SECRET_KEY = "robo123"; // Aapka password
+
+window.openAdmin = () => {
+    document.getElementById('adminModal').classList.remove('hidden');
+    document.getElementById('admin-login').classList.remove('hidden');
+    document.getElementById('admin-form').classList.add('hidden');
+};
+
+window.checkAdmin = () => {
+    const input = document.getElementById('admin-pass').value;
+    if(input === SECRET_KEY) {
+        document.getElementById('admin-login').classList.add('hidden');
+        document.getElementById('admin-form').classList.remove('hidden');
+    } else {
+        alert("Wrong Password! Access Denied.");
+    }
+};
+
+window.saveNewProduct = () => {
+    const name = document.getElementById('new-p-name').value;
+    const price = document.getElementById('new-p-price').value;
+    const desc = document.getElementById('new-p-desc').value;
+    const img = document.getElementById('new-p-img').value;
+
+    if(!name || !price || !img) return alert("Fill all details!");
+
+    const newObj = {
+        id: products.length + 1,
+        name: name,
+        price: parseInt(price),
+        images: [img],
+        desc: desc,
+        stars: 5
+    };
+
+    // Database mein add karna
+    products.push(newObj);
+    
+    // Website refresh karna bina page reload kiye
+    init(); 
+    
+    alert("Product Live on Robocon Pro!");
+    closeModal('adminModal');
+    
+    // Form clear karna
+    document.getElementById('new-p-name').value = "";
+    document.getElementById('new-p-price').value = "";
+    document.getElementById('new-p-desc').value = "";
+    document.getElementById('new-p-img').value = "";
+};
+
 // UTILS
 window.toggleSidebar = (id) => document.getElementById('catalogueSidebar').classList.toggle('hidden');
 window.closeModal = (id) => document.getElementById(id).classList.add('hidden');

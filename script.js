@@ -94,7 +94,7 @@ window.confirmOrder = () => {
     cart.forEach(i => msg += `• ${i.name} x${i.qty} - ₹${i.price * i.qty}\n`);
     msg += `\n💰 *Total: ${document.getElementById('final-total').innerText}*`;
     
-    window.open(`https://wa.me/91XXXXXXXXXX?text=${encodeURIComponent(msg)}`, '_blank');
+    window.open(`https://wa.me/917977088862?text=${encodeURIComponent(msg)}`, '_blank');
     alert(`Order Placed! Your ID: ${trackingID}\nKeep it for tracking.`);
 };
 
@@ -108,6 +108,20 @@ window.openInfoLayout = () => {
 window.clearStore = () => { localStorage.removeItem('myStoreData'); location.reload(); };
 
 renderGrid();
+// POINT 1: script.js ke sabse niche ye function type karein
+function toggleNav() {
+    let menu = document.getElementById("sideMenu");
+    
+    // Check karein: Kya width abhi 250px (Khuli hui) hai?
+    if (menu.style.width === "250px") {
+        // Haan! Toh isse band (0) kar do
+        menu.style.width = "0";
+    } else {
+        // Nahi! Toh isse khol (250px) do
+        menu.style.width = "250px";
+    }
+}
+
 // Point 4: File ke sabse niche ye type karein (Line 49 se shuru karein)
 
 window.filterCategory = (catName) => {

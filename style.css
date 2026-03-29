@@ -50,7 +50,7 @@ body { background: var(--bg-dark); }
     padding: 12px 32px; /* Har link ke charo taraf space */
     text-decoration: none;
     font-size: 16px;
-    color: #8892b0;
+    color: #003ef8;
     display: block; /* Isse har link puri width lega aur nayi line se shuru hoga */
     transition: 0.3s;
     cursor: pointer;
@@ -58,7 +58,7 @@ body { background: var(--bg-dark); }
 }
 
 .side-nav a:hover {
-    color: #39ff14; /* Neon Green on hover */
+    color: #001aff; /* Neon Green on hover */
     background: rgba(0, 242, 255, 0.05); /* Halki si highlight */
 }
 

@@ -26,7 +26,7 @@ body { background: var(--bg-dark); }
 
 /* Sidebar ka basic look */
 .side-nav {
-    height: 95%;
+    height: 100%;
     width: 15; /* Shuruat mein band rahega */
     position: fixed;
     z-index: 0;

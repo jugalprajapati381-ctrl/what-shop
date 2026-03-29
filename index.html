@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Robocon Pro | Advanced Robotics Store</title>
+    <title>Robocon Pro | Digital Store</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-main text-white font-sans overflow-x-hidden">
+<body class="bg-main text-white">
 
-    <header class="navbar p-5 sticky top-0 z-50 flex justify-between items-center shadow-lg">
-        <h1 class="logo-text">ROBOCON <span class="text-blue-500">PRO</span></h1>
-        <div onclick="toggleSidebar('catalogue')" class="relative cursor-pointer glow-icon">
+    <header class="navbar p-4 sticky top-0 z-50 flex justify-between items-center shadow-2xl">
+        <h1 class="logo-text">ROBOCON <span class="text-blue-400">PRO</span></h1>
+        <div onclick="toggleSidebar()" class="relative cursor-pointer hover:scale-110 transition">
             <span id="cart-count" class="badge">0</span>
             <img src="https://img.icons8.com/neon/96/shopping-cart.png" class="h-10 w-10">
         </div>
@@ -21,96 +21,74 @@
         </main>
 
     <div id="productModal" class="modal-overlay hidden">
-        <div class="modal-content glass-effect border-shiny">
-            <button onclick="closeModal('productModal')" class="close-btn">&times;</button>
-            <div class="md:flex gap-8 p-4">
+        <div class="modal-content glass-effect border-shiny p-6 max-w-4xl w-full mx-4">
+            <button onclick="closeModal('productModal')" class="absolute top-4 right-4 text-3xl">&times;</button>
+            <div class="md:flex gap-8">
                 <div class="flex-1">
-                    <img id="detail-img" src="" class="main-detail-image rounded-2xl">
-                    <div id="image-thumbnails" class="flex gap-2 mt-4"></div>
+                    <img id="detail-img" src="" class="w-full h-64 object-contain bg-white rounded-2xl p-4">
                 </div>
                 <div class="flex-1 space-y-4">
                     <h2 id="detail-name" class="text-3xl font-black text-blue-400"></h2>
-                    <p id="detail-desc" class="text-gray-400 italic text-sm"></p>
-                    <div id="detail-reviews" class="text-yellow-400 text-xs"></div>
-                    <p id="detail-price" class="text-2xl font-bold text-white"></p>
-                    <div class="qty-control">
-                        <button onclick="updateQty(-1)">-</button>
-                        <span id="qty-number">1</span>
-                        <button onclick="updateQty(1)">+</button>
+                    <p id="detail-desc" class="text-gray-400 text-sm leading-relaxed"></p>
+                    <div class="text-yellow-400">⭐⭐⭐⭐⭐ <span class="text-gray-500 text-xs">(Verified Reviews)</span></div>
+                    <p id="detail-price" class="text-2xl font-bold"></p>
+                    <div class="flex items-center gap-4 py-4">
+                        <button onclick="updateQty(-1)" class="qty-btn">-</button>
+                        <span id="qty-num" class="text-xl font-bold">1</span>
+                        <button onclick="updateQty(1)" class="qty-btn">+</button>
                     </div>
-                    <button onclick="addToCatalogue()" class="glow-btn-blue w-full">ADD TO CATALOGUE</button>
+                    <button onclick="addToCatalogue()" class="glow-btn-blue w-full py-4 uppercase">Add to Catalogue</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="catalogueSidebar" class="sidebar hidden shadow-2xl">
-        <div class="p-6 h-full flex flex-col">
-            <h2 class="text-xl font-black border-b border-gray-700 pb-4 mb-4">FINAL CATALOGUE</h2>
-            <div id="catalogue-list" class="flex-1 overflow-y-auto space-y-4">
-                </div>
-            <div class="border-t border-gray-700 pt-4 mt-auto">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-gray-400">Total Price:</span>
-                    <span id="total-price" class="text-2xl font-black text-blue-400">₹0</span>
-                </div>
-                <button onclick="showLayout(3)" class="glow-btn-green w-full py-4 uppercase font-black">Final Catalogue</button>
+    <div id="cartSidebar" class="sidebar hidden p-6 flex flex-col">
+        <h2 class="text-2xl font-black mb-6 border-b border-gray-800 pb-2 text-blue-400">FINAL CATALOGUE</h2>
+        <div id="cart-items" class="flex-1 overflow-y-auto space-y-4"></div>
+        <div class="pt-6 border-t border-gray-800">
+            <div class="flex justify-between text-xl font-bold mb-4">
+                <span>Total:</span>
+                <span id="final-total" class="text-green-400">₹0</span>
             </div>
+            <button onclick="openInfoLayout()" class="glow-btn-green w-full py-4 uppercase font-black">Finalize Order</button>
         </div>
     </div>
 
     <div id="infoLayout" class="modal-overlay hidden">
-        <div class="modal-content glass-effect max-w-lg p-8">
-            <h2 class="text-2xl font-bold mb-6 text-blue-400">Delivery Information</h2>
-            <div class="grid grid-cols-1 gap-4 text-sm">
-                <input type="text" id="cust-name" placeholder="Full Name" class="form-input">
-                <input type="text" id="cust-address" placeholder="Address / Hostel / Floor" class="form-input">
-                <div class="grid grid-cols-2 gap-2">
-                    <input type="text" id="cust-pin" placeholder="Pin Code" class="form-input">
-                    <input type="text" id="cust-landmark" placeholder="Landmark" class="form-input">
-                </div>
-                <input type="tel" id="cust-phone" placeholder="Primary Contact" class="form-input">
-                <input type="tel" id="cust-alt" placeholder="Alternate Number" class="form-input">
-                <button onclick="confirmDetails()" class="glow-btn-blue py-3 mt-4">CONTINUE TO FINAL ORDER</button>
+        <div class="modal-content glass-effect max-w-md p-8 border-shiny">
+            <h2 class="text-2xl font-bold mb-6 text-blue-400">Delivery Details</h2>
+            <div class="space-y-4">
+                <input type="text" id="cust-name" placeholder="Customer Name" class="form-input w-full">
+                <input type="text" id="cust-address" placeholder="Hostel/Address" class="form-input w-full">
+                <input type="tel" id="cust-phone" placeholder="WhatsApp Number" class="form-input w-full">
+                <button onclick="confirmOrder()" class="glow-btn-blue w-full py-3 mt-4">CONFIRM & TRACK</button>
             </div>
         </div>
     </div>
 
-    <div id="trackingLayout" class="max-w-2xl mx-auto p-8 glass-effect mt-10 hidden border-shiny">
-        <h2 class="text-2xl font-bold text-green-400 mb-4 tracking-tighter">ORDER TRACKING ACTIVE</h2>
-        <div id="tracking-content" class="space-y-3 text-sm">
-            </div>
-        <div class="mt-6 p-4 bg-blue-900/20 rounded-lg border border-blue-500/30">
-            <p class="text-xs text-blue-300">Type: <span class="font-bold">Open Box Delivery</span></p>
-            <p id="delivery-boy" class="text-xs text-gray-400 mt-1"></p>
-        </div>
-    </div>
+    <footer class="p-20 text-center opacity-10 hover:opacity-100 transition">
+        <p onclick="openAdmin()" class="cursor-pointer text-xs">Admin Access</p>
+    </footer>
+
     <div id="adminModal" class="modal-overlay hidden">
-    <div class="modal-content glass-effect border-shiny max-w-lg p-8">
-        <h2 class="text-2xl font-bold text-blue-400 mb-4">ADMIN DASHBOARD</h2>
-        <div id="admin-login" class="space-y-4">
-            <input type="password" id="admin-pass" placeholder="Enter Secret Key" class="form-input w-full">
-            <button onclick="checkAdmin()" class="glow-btn-blue w-full py-2">LOGIN</button>
-        </div>
-        
-        <div id="admin-form" class="hidden space-y-4">
-            <p class="text-xs text-green-400">Login Successful! Add New Item:</p>
-            <input type="text" id="new-p-name" placeholder="Product Name" class="form-input w-full">
-            <input type="number" id="new-p-price" placeholder="Price (₹)" class="form-input w-full">
-            <textarea id="new-p-desc" placeholder="Product Specialty/Description" class="form-input w-full"></textarea>
-            <input type="text" id="new-p-img" placeholder="GitHub Image Link (RAW)" class="form-input w-full">
-            <button onclick="saveNewProduct()" class="glow-btn-green w-full py-3">PUBLISH TO STORE</button>
-            <button onclick="closeModal('adminModal')" class="text-gray-500 text-xs w-full mt-2">Exit Admin Mode</button>
+        <div class="modal-content glass-effect p-8 max-w-md border-shiny">
+            <h2 class="text-xl font-bold mb-4">Admin Dashboard</h2>
+            <div id="admin-login-area">
+                <input type="password" id="admin-pass" placeholder="Enter Key" class="form-input w-full mb-4">
+                <button onclick="checkAdmin()" class="glow-btn-blue w-full py-2">Login</button>
+            </div>
+            <div id="admin-form" class="hidden space-y-3">
+                <input type="text" id="new-name" placeholder="Item Name" class="form-input w-full text-sm">
+                <input type="number" id="new-price" placeholder="Price" class="form-input w-full text-sm">
+                <input type="text" id="new-img" placeholder="Image URL (GitHub Raw)" class="form-input w-full text-sm">
+                <textarea id="new-desc" placeholder="Specialty" class="form-input w-full text-sm"></textarea>
+                <button onclick="saveProduct()" class="glow-btn-green w-full py-3 font-bold">ADD PRODUCT LIVE</button>
+                <button onclick="clearStore()" class="w-full text-red-500 text-[10px] mt-4 uppercase underline">Reset All Store Data</button>
+            </div>
         </div>
     </div>
-</div>
-
-<footer class="p-10 text-center">
-    <p onclick="openAdmin()" class="text-gray-800 cursor-pointer text-[10px]">Admin Access</p>
-</footer>
-
 
     <script src="script.js"></script>
 </body>
 </html>
-

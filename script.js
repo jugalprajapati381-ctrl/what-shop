@@ -1,176 +1,108 @@
-// DATABASE
-const products = [
-    {
-        id: 1,
-        name: "Brushless DC Motor",
-        price: 1450,
-        images: ["https://img.icons8.com/color/240/engine.png", "https://img.icons8.com/color/240/settings.png"],
-        desc: "High torque 1000KV motor for racing drones and heavy robots.",
-        stars: 5
-    },
-    {
-        id: 2,
-        name: "Lidar Sensor X2",
-        price: 4200,
-        images: ["https://img.icons8.com/color/240/radar.png"],
-        desc: "360-degree laser scanning for autonomous navigation.",
-        stars: 4
-    }
+// INITIAL DATA
+const defaultProducts = [
+    { id: 1, name: "Arduino Uno", price: 550, desc: "B.Tech project base board", img: "https://img.icons8.com/color/240/arduino.png" },
+    { id: 2, name: "IR Sensor", price: 45, desc: "Obstacle detection sensor", img: "https://img.icons8.com/color/240/proximity-sensor.png" }
 ];
 
-let catalogue = [];
-let currentProduct = null;
+// Memory: Check if products exist in LocalStorage, else use defaults
+let products = JSON.parse(localStorage.getItem('myStoreData')) || defaultProducts;
+let cart = [];
+let currentItem = null;
 let currentQty = 1;
 
-// INITIALIZE GRID
-function init() {
+// 1. RENDER GRID
+function renderGrid() {
     const grid = document.getElementById('product-grid');
     grid.innerHTML = products.map(p => `
-        <div class="glass-effect p-4 rounded-xl border border-gray-800 hover:border-blue-500 transition-all duration-300">
-            <img src="${p.images[0]}" onclick="openProduct(${p.id})" class="w-full h-40 object-contain cursor-pointer">
+        <div class="glass-effect p-4 border border-gray-800 hover:border-blue-500 transition">
+            <img src="${p.img}" onclick="openDetail(${p.id})" class="h-40 w-full object-contain cursor-pointer">
             <h3 class="mt-4 font-bold text-blue-400">${p.name}</h3>
             <p class="text-xl font-black">₹${p.price}</p>
-            <button onclick="openProduct(${p.id})" class="w-full mt-3 py-2 bg-gray-800 text-xs rounded-lg hover:bg-blue-600">VIEW DETAILS</button>
+            <button onclick="openDetail(${p.id})" class="w-full mt-3 bg-gray-800 py-2 rounded-lg text-xs font-bold uppercase">View & Add</button>
         </div>
     `).join('');
 }
 
-// LAYOUT 1 LOGIC: Open Detail
-window.openProduct = (id) => {
-    currentProduct = products.find(p => p.id === id);
+// 2. DETAIL & QTY LOGIC
+window.openDetail = (id) => {
+    currentItem = products.find(p => p.id === id);
     currentQty = 1;
-    document.getElementById('detail-name').innerText = currentProduct.name;
-    document.getElementById('detail-desc').innerText = currentProduct.desc;
-    document.getElementById('detail-price').innerText = "₹" + currentProduct.price;
-    document.getElementById('detail-img').src = currentProduct.images[0];
-    document.getElementById('qty-number').innerText = currentQty;
+    document.getElementById('detail-name').innerText = currentItem.name;
+    document.getElementById('detail-desc').innerText = currentItem.desc;
+    document.getElementById('detail-price').innerText = "₹" + currentItem.price;
+    document.getElementById('detail-img').src = currentItem.img;
+    document.getElementById('qty-num').innerText = currentQty;
     document.getElementById('productModal').classList.remove('hidden');
 };
 
 window.updateQty = (val) => {
     currentQty = Math.max(1, Math.min(50, currentQty + val));
-    document.getElementById('qty-number').innerText = currentQty;
+    document.getElementById('qty-num').innerText = currentQty;
 };
 
-// LAYOUT 2 LOGIC: Catalogue
+// 3. CART LOGIC
 window.addToCatalogue = () => {
-    const existing = catalogue.find(c => c.id === currentProduct.id);
-    if(existing) existing.qty += currentQty;
-    else catalogue.push({...currentProduct, qty: currentQty});
-    
-    updateCatalogueUI();
+    cart.push({ ...currentItem, qty: currentQty });
+    updateCartUI();
     closeModal('productModal');
 };
 
-function updateCatalogueUI() {
-    const list = document.getElementById('catalogue-list');
-    document.getElementById('cart-count').innerText = catalogue.length;
+function updateCartUI() {
+    document.getElementById('cart-count').innerText = cart.length;
     let total = 0;
-    
-    list.innerHTML = catalogue.map(item => {
-        total += (item.price * item.qty);
-        return `
-            <div class="flex justify-between items-center bg-gray-900/50 p-3 rounded-lg border-l-2 border-blue-500">
-                <div class="flex gap-3 items-center">
-                    <img src="${item.images[0]}" class="h-10 w-10">
-                    <div>
-                        <p class="text-xs font-bold">${item.name}</p>
-                        <p class="text-[10px] text-gray-500">Qty: ${item.qty}</p>
-                    </div>
-                </div>
-                <p class="text-blue-400 font-bold">₹${item.price * item.qty}</p>
-            </div>
-        `;
+    const list = document.getElementById('cart-items');
+    list.innerHTML = cart.map(i => {
+        total += (i.price * i.qty);
+        return `<div class="bg-black/30 p-3 rounded-lg flex justify-between">
+            <span class="text-xs font-bold">${i.name} (x${i.qty})</span>
+            <span class="text-blue-400">₹${i.price * i.qty}</span>
+        </div>`;
     }).join('');
-    document.getElementById('total-price').innerText = "₹" + total;
+    document.getElementById('final-total').innerText = "₹" + total;
 }
 
-// LAYOUT 3: Final Details & WhatsApp
-window.confirmDetails = () => {
-    const name = document.getElementById('cust-name').value;
-    const trackingID = "ROBO-" + Math.floor(Math.random() * 1000000);
-    
-    let msg = `🚀 *ROBOCON PRO ORDER*\nID: ${trackingID}\n\n`;
-    catalogue.forEach(i => msg += `• ${i.name} [x${i.qty}] - ₹${i.price * i.qty}\n`);
-    msg += `\n💰 Total: ${document.getElementById('total-price').innerText}\n`;
-    msg += `📍 Address: ${document.getElementById('cust-address').value}\n`;
-    
-    window.open(`https://wa.me/917977088862?text=${encodeURIComponent(msg)}`, '_blank');
-    showTracking(trackingID, name);
-};
-
-// LAYOUT 4: Tracking System
-function showTracking(id, name) {
-    document.getElementById('infoLayout').classList.add('hidden');
-    document.getElementById('trackingLayout').classList.remove('hidden');
-    
-    document.getElementById('tracking-content').innerHTML = `
-        <p>Order Status: <span class="text-blue-400 font-bold">Processing</span></p>
-        <p>Customer: ${name}</p>
-        <p>Tracking ID: <span class="text-white">${id}</span></p>
-        <p>Date: ${new Date().toLocaleDateString()}</p>
-        <p>Expected Delivery: 24-48 Hours</p>
-    `;
-    document.getElementById('delivery-boy').innerHTML = `Delivery Agent: Rahul (Code: 7712) | 📞 9876543210`;
-}
-
-// Admin Logic
-const SECRET_KEY = "robo123"; // Aapka password
-
-window.openAdmin = () => {
-    document.getElementById('adminModal').classList.remove('hidden');
-    document.getElementById('admin-login').classList.remove('hidden');
-    document.getElementById('admin-form').classList.add('hidden');
-};
-
+// 4. ADMIN PANEL (The Secret Door)
+window.openAdmin = () => document.getElementById('adminModal').classList.remove('hidden');
 window.checkAdmin = () => {
-    const input = document.getElementById('admin-pass').value;
-    if(input === SECRET_KEY) {
-        document.getElementById('admin-login').classList.add('hidden');
+    if(document.getElementById('admin-pass').value === "robo123") {
+        document.getElementById('admin-login-area').classList.add('hidden');
         document.getElementById('admin-form').classList.remove('hidden');
-    } else {
-        alert("Wrong Password! Access Denied.");
-    }
+    } else { alert("Wrong Key!"); }
 };
 
-window.saveNewProduct = () => {
-    const name = document.getElementById('new-p-name').value;
-    const price = document.getElementById('new-p-price').value;
-    const desc = document.getElementById('new-p-desc').value;
-    const img = document.getElementById('new-p-img').value;
+window.saveProduct = () => {
+    const name = document.getElementById('new-name').value;
+    const price = document.getElementById('new-price').value;
+    const img = document.getElementById('new-img').value;
+    const desc = document.getElementById('new-desc').value;
 
-    if(!name || !price || !img) return alert("Fill all details!");
-
-    const newObj = {
-        id: products.length + 1,
-        name: name,
-        price: parseInt(price),
-        images: [img],
-        desc: desc,
-        stars: 5
-    };
-
-    // Database mein add karna
-    products.push(newObj);
-    
-    // Website refresh karna bina page reload kiye
-    init(); 
-    
-    alert("Product Live on Robocon Pro!");
+    const newItem = { id: Date.now(), name, price: parseInt(price), img, desc };
+    products.push(newItem);
+    localStorage.setItem('myStoreData', JSON.stringify(products)); // SAVE PERMANENTLY
+    renderGrid();
     closeModal('adminModal');
+    alert("Live updated!");
+};
+
+// 5. WHATSAPP & TRACKING
+window.confirmOrder = () => {
+    const trackingID = "TRK" + Math.floor(Math.random() * 99999);
+    const name = document.getElementById('cust-name').value;
+    let msg = `📦 *ROBOCON ORDER* | ID: ${trackingID}\nCustomer: ${name}\nItems:\n`;
+    cart.forEach(i => msg += `• ${i.name} x${i.qty} - ₹${i.price * i.qty}\n`);
+    msg += `\n💰 *Total: ${document.getElementById('final-total').innerText}*`;
     
-    // Form clear karna
-    document.getElementById('new-p-name').value = "";
-    document.getElementById('new-p-price').value = "";
-    document.getElementById('new-p-desc').value = "";
-    document.getElementById('new-p-img').value = "";
+    window.open(`https://wa.me/91XXXXXXXXXX?text=${encodeURIComponent(msg)}`, '_blank');
+    alert(`Order Placed! Your ID: ${trackingID}\nKeep it for tracking.`);
 };
 
 // UTILS
-window.toggleSidebar = (id) => document.getElementById('catalogueSidebar').classList.toggle('hidden');
+window.toggleSidebar = () => document.getElementById('cartSidebar').classList.toggle('hidden');
 window.closeModal = (id) => document.getElementById(id).classList.add('hidden');
-window.showLayout = (num) => {
-    if(num === 3) document.getElementById('infoLayout').classList.remove('hidden');
+window.openInfoLayout = () => {
+    if(cart.length === 0) return alert("Select products first!");
+    document.getElementById('infoLayout').classList.remove('hidden');
 };
+window.clearStore = () => { localStorage.removeItem('myStoreData'); location.reload(); };
 
-init();
+renderGrid();
